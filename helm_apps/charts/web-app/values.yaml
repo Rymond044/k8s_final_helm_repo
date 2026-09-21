@@ -1,6 +1,6 @@
 image:
   repository: registry.minikube.local/rymond044/app
-  tag: "dev-v1.0.2"
+  tag: "dev-v1.0.3"
   pullPolicy: IfNotPresent
 
 secret:

@@ -70,7 +70,7 @@ gitlab:
     concurrency: 5
     resources:
       requests:
-        cpu: 50m
+        cpu: 250m
         memory: 500Mi
       limits:
         memory: 1000Mi
