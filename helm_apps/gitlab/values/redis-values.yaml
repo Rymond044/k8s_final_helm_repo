@@ -1,0 +1,10 @@
+auth:
+  enabled: true
+  password: redis-password
+architecture: standalone
+volumePermissions:
+  enabled: true
+master:
+  resources:
+    limits:
+      memory: 256Mi

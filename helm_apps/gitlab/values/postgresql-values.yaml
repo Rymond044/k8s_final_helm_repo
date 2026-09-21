@@ -1,0 +1,14 @@
+auth:
+  postgresPassword: postgres-password
+  database: gitlabhq_production
+  username: gitlab
+  password: gitlab-password
+volumePermissions:
+  enabled: true
+primary:
+  resources:
+    limits:
+      memory: 1536Mi
+    requests:
+      memory: 512Mi
+  extendedConfiguration: max_locks_per_transaction = 512
