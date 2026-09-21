@@ -1,0 +1,27 @@
+image:
+  repository: registry.minikube.local/rymond044/app
+  tag: "dev-v1.0.2"
+  pullPolicy: IfNotPresent
+
+secret:
+  appSecretValue: "super-secret-turbo-pro-dolbit-digital-data"
+
+resources:
+  app:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 150m
+      memory: 128Mi
+  nginx:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi
+
+ingress:
+  enabled: true
+  host: app.minikube.local

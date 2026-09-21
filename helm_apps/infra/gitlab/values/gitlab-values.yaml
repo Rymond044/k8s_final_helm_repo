@@ -99,6 +99,9 @@ gitlab:
 
 registry:
   enabled: true
+  hpa:
+    minReplicas: 1
+    maxReplicas: 1
   storage:
     secret: gitlab-registry-storage
     key: config
