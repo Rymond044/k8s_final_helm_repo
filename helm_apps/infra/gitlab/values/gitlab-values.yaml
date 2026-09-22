@@ -108,18 +108,32 @@ registry:
 
 gitlab-runner:
   enabled: true
-  gitlabUrl: http://gitlab-webservice-default.gitlab.svc.cluster.local:8181
+  gitlabUrl: http://gitlab-webservice-default.gitlab.svc.cluster.local:8080
+  concurrent: 10
+  checkInterval: 3
   runners:
     privileged: true
-    cloneUrl: http://gitlab-webservice-default.gitlab.svc.cluster.local:8181
     config: |
       [[runners]]
+        name = "kubernetes-runner"
+        executor = "kubernetes"
+        request_concurrency = 4
+        
+        [runners.custom_build_dir]
+        
+        [runners.cache]
+          MaxUploadedArchiveSize = 0
+          
         [runners.kubernetes]
+          host = ""
+          bearer_token_overwrite_allowed = false
+          image = "docker:24.0.7"
           privileged = true
-        [[runners.kubernetes.services]]
-          name = "docker:24.0.7-dind"
-          # Принудительно передаем флаг небезопасного реестра в сам сервис dind на уровне раннера
-          command = ["dockerd-entrypoint.sh", "--insecure-registry=registry.minikube.local"]
+          namespace = "gitlab"
+          env = [
+            "DOCKER_TLS_CERTDIR=", 
+            "DOCKER_DRIVER=overlay2"
+          ]
 
 prometheus:
   install: false
