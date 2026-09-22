@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+  namespace: gitlab
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,6 +42,13 @@ spec:
           ports:
             - containerPort: 9000
             - containerPort: 9001
+          volumeMounts:
+            - name: storage-volume
+              mountPath: /data
+      volumes:
+        - name: storage-volume
+          persistentVolumeClaim:
+            claimName: minio-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -63,5 +83,6 @@ spec:
             - -c
             - |
               until mc alias set myminio http://minio.gitlab.svc.cluster.local:9000 minioadmin minioadminpassword; do echo "Waiting for minio..."; sleep 2; done;
-              mc mb myminio/gitlab-storage || true;
-              mc mb myminio/registry-storage || true;
+              mc mb --ignore-existing myminio/gitlab-storage;
+              mc mb --ignore-existing myminio/gitlab-uploads;
+              mc mb --ignore-existing myminio/registry-storage;

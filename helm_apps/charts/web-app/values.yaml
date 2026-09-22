@@ -1,5 +1,9 @@
+registry:
+  username: "gitlab+deploy-token-1"
+  password: "gldt-RwwBNAkFwy7zDQRXCsvx"
+
 image:
-  repository: registry.minikube.local/rymond044/app
+  repository: registry.minikube.local/rymond044/final_k8s_app_repo/app
   tag: "dev-v1.0.3"
   pullPolicy: IfNotPresent
 

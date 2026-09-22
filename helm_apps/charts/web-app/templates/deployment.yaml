@@ -14,6 +14,8 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      imagePullSecrets:
+        - name: gitlab-registry-key
       containers:
         - name: app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -22,7 +24,7 @@ spec:
             - name: APP_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Release.Name }}-app-secret
+                  name: {{ .Release.Name }}-secret
                   key: APP_SECRET
           ports:
             - containerPort: 5000
