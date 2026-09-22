@@ -85,4 +85,7 @@ spec:
               until mc alias set myminio http://minio.gitlab.svc.cluster.local:9000 minioadmin minioadminpassword; do echo "Waiting for minio..."; sleep 2; done;
               mc mb --ignore-existing myminio/gitlab-storage;
               mc mb --ignore-existing myminio/gitlab-uploads;
+              mc mb --ignore-existing myminio/gitlab-artifacts;
+              mc mb --ignore-existing myminio/git-lfs;
+              mc mb --ignore-existing myminio/gitlab-packages;
               mc mb --ignore-existing myminio/registry-storage;

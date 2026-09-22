@@ -3,7 +3,7 @@ registry:
   password: "gldt-RwwBNAkFwy7zDQRXCsvx"
 
 image:
-  repository: registry.minikube.local/rymond044/final_k8s_app_repo/app
+  repository: registry.minikube.local/rymond044/final_k8s_app_repo
   tag: "dev-v1.0.3"
   pullPolicy: IfNotPresent
 
