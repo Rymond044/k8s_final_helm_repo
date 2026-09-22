@@ -67,13 +67,13 @@ gitlab:
   sidekiq:
     minReplicas: 1
     maxReplicas: 1
-    concurrency: 5
+    concurrency: 2
     resources:
       requests:
         cpu: 250m
         memory: 500Mi
       limits:
-        memory: 1000Mi
+        memory: 1800Mi
   gitlab-shell:
     minReplicas: 1
     maxReplicas: 1
@@ -112,6 +112,14 @@ gitlab-runner:
   runners:
     privileged: true
     cloneUrl: http://gitlab-webservice-default.gitlab.svc.cluster.local:8181
+    config: |
+      [[runners]]
+        [runners.kubernetes]
+          privileged = true
+        [[runners.kubernetes.services]]
+          name = "docker:24.0.7-dind"
+          # Принудительно передаем флаг небезопасного реестра в сам сервис dind на уровне раннера
+          command = ["dockerd-entrypoint.sh", "--insecure-registry=registry.minikube.local"]
 
 prometheus:
   install: false
