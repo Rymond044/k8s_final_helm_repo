@@ -1,0 +1,53 @@
+grafana:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.minikube.local
+
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki.logging.svc.cluster.local:3100
+      isDefault: false
+      jsonData:
+        maxLines: 1000
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 150Mi
+    limits:
+      memory: 350Mi
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.minikube.local
+  prometheusSpec:
+    retention: 2d
+    resources:
+      requests:
+        cpu: 150m
+        memory: 400Mi
+      limits:
+        memory: 800Mi
+
+alertmanager:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - alertmanager.minikube.local
+  alertmanagerSpec:
+    configSecret: alertmanager-telegram-config
+
+nodeExporter:
+  enabled: true
+kubeStateMetrics:
+  enabled: true

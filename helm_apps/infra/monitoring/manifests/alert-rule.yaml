@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: web-app-alerts
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: web-app.rules
+      rules:
+        - alert: WebAppHighMemoryUsage
+          expr: sum(container_memory_working_set_bytes{namespace="app", container="web-app"}) > 80 * 1024 * 1024
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Высокое потребление RAM на Web-application"
+            description: "Под {{ $labels.pod }} в namespace 'app' использует более 80MB RAM."
+
+        - alert: WebAppPodDown
+          expr: kube_pod_status_ready{namespace="app", condition="true"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Под Web-application недоступен"
+            description: "Под {{ $labels.pod }} в namespace 'app' находится в состоянии NotReady более 1 минуты."
