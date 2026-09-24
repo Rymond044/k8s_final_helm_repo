@@ -4,7 +4,7 @@ registry:
 
 image:
   repository: registry.minikube.local/rymond044/final_k8s_app_repo
-  tag: "dev-v2.2.1"
+  tag: "dev-v2.2.2"
   pullPolicy: IfNotPresent
 
 secret:
