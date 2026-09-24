@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-app
+  namespace: argocd
+spec:
+  project: web-app-project
+  source:
+    repoURL: "git@gitlab.minikube.local:rymond044/final_k8s_helm_repo.git"
+    targetRevision: HEAD
+    path: helm_apps/charts/web-app
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
