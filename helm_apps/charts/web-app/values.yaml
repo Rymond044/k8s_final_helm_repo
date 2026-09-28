@@ -1,6 +1,6 @@
 registry:
   username: "gitlab+deploy-token-1"
-  password: "gldt-RwwBNAkFwy7zDQRXCsvx"
+  password: ""
 
 image:
   repository: registry.minikube.local/rymond044/final_k8s_app_repo
@@ -8,7 +8,7 @@ image:
   pullPolicy: IfNotPresent
 
 secret:
-  appSecretValue: "super-secret-turbo-pro-dolbit-digital-data"
+  appSecretValue: ""
 
 resources:
   app:
