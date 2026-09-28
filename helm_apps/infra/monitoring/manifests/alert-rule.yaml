@@ -4,7 +4,7 @@ metadata:
   name: web-app-alerts
   namespace: monitoring
   labels:
-    release: prometheus
+    release: monitoring-stack
 spec:
   groups:
     - name: web-app.rules
